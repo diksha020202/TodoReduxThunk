@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Todo from "./Components/Todo/Todo";
+import { incrementCountAction } from "./Redux/counter/action";
+// import { ReduxContext } from "./Redux/ReduxProvider";
+
+
+export default function App() {
+  const count = useSelector((state) => {
+    return state.counter.count;
+  });
+  const dispatch = useDispatch();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Count: {count}</h1>
+      <button onClick={() => dispatch(incrementCountAction(1))}>ADD</button>
+      <button onClick={() => dispatch(incrementCountAction(-1))}>REDUCE</button>
+      <br />
+      <br />
+      <br />
+      <Todo />
     </div>
   );
 }
-
-export default App;
